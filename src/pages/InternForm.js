@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 // import { useHistory } from "react-router-dom";
 
 const InternForm = () => {
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
   const [formData, setFormData] = useState({
@@ -59,8 +61,8 @@ const InternForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
 
+    setLoading(true);
     // Upload file to Cloud Storage
     const fileRef = storage.ref().child(`resumes/${formData.resume.name}`);
     const snapshot = await fileRef.put(formData.resume);
@@ -82,6 +84,7 @@ const InternForm = () => {
       phone: "",
       resume: null,
     });
+    setLoading(false);
   };
 
   return (
@@ -97,6 +100,7 @@ const InternForm = () => {
         </button>
       </header>
       <h1 className="text-3xl font-bold mb-8">Sign Up for YourHR</h1>
+
       <form onSubmit={handleSubmit} className="max-w-lg">
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
@@ -156,14 +160,21 @@ const InternForm = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
-        <div className="flex items-center justify-center">
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Submit
-          </button>
-        </div>
+        {loading ? (
+          <div className="flex justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <div className="animate-spin spinner-border h-8 w-8 border-b-2 rounded-full "></div>
+            <p className="px-4">Submittng</p>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              <p className="px-4">Submit</p>
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
