@@ -2,15 +2,30 @@ import React, { useState } from "react";
 import Image from "next/image";
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
-import { db, storage } from "@/firebase";
+import { auth, db, storage } from "@/firebase";
+import KudosLogo from "../images/kudosLogo.jpeg";
+import { useRouter } from "next/router";
+// import { useHistory } from "react-router-dom";
 
 const InternForm = () => {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     resume: null,
   });
+
+  const handleSignOut = async () => {
+    try {
+      await auth.signOut();
+      // Navigate to Login page after successful sign out
+      router.push("/");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -22,29 +37,25 @@ const InternForm = () => {
     setFormData({ ...formData, [name]: files[0] });
   };
 
+  // rules_version = '2';
 
+  // service firebase.storage {
 
+  //   match /b/{bucket}/o {
 
-// rules_version = '2';
+  //     match /{allPaths=**} {
 
-// service firebase.storage {
+  //       allow read, write: if
 
-//   match /b/{bucket}/o {
+  //         request.time < timestamp.date(2023, 5, 7);
 
-//     match /{allPaths=**} {
+  //     }
 
-//       allow read, write: if
+  //   }
 
-//         request.time < timestamp.date(2023, 5, 7);
+  // }
 
-//     }
-
-//   }
-
-// }
-
-    
-
+  // console.log(db, " database");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -75,6 +86,16 @@ const InternForm = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center container mx-auto px-4 py-8">
+      <header className="flex justify-between w-full mb-8">
+        <Image src={KudosLogo} alt="Your Logo" className="w-10 h-10" />
+
+        <button
+          onClick={handleSignOut}
+          className="text-white bg-blue-500 py-2 px-4 rounded hover:bg-blue-300"
+        >
+          Sign Out
+        </button>
+      </header>
       <h1 className="text-3xl font-bold mb-8">Sign Up for YourHR</h1>
       <form onSubmit={handleSubmit} className="max-w-lg">
         <div className="mb-4">
