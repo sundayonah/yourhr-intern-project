@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
+import { db, storage } from "@/firebase";
 
 const InternForm = () => {
   const [formData, setFormData] = useState({
@@ -19,9 +22,55 @@ const InternForm = () => {
     setFormData({ ...formData, [name]: files[0] });
   };
 
-  const handleSubmit = (event) => {
+
+
+
+// rules_version = '2';
+
+// service firebase.storage {
+
+//   match /b/{bucket}/o {
+
+//     match /{allPaths=**} {
+
+//       allow read, write: if
+
+//         request.time < timestamp.date(2023, 5, 7);
+
+//     }
+
+//   }
+
+// }
+
+    
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData); // send data to backend
+    console.log(formData);
+
+    // Upload file to Cloud Storage
+    const fileRef = storage.ref().child(`resumes/${formData.resume.name}`);
+    const snapshot = await fileRef.put(formData.resume);
+    const fileUrl = await snapshot.ref.getDownloadURL();
+
+    // Add document to Firestore with file URL
+    const internsRef = db.collection("interns");
+    await internsRef.add({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      resumeUrl: fileUrl,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      resume: null,
+    });
   };
 
   return (

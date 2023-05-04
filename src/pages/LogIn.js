@@ -14,7 +14,7 @@ const LogIn = () => {
       const result = await auth.signInWithPopup(provider);
       // Redirect the user to the dashboard page
       console.log(result, "result");
-      router.push("./InternForm.js");
+      router.push("./InternForm");
     } catch (error) {
       console.error(error.message);
     }

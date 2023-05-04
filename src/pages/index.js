@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
 import firebase from "firebase/compat/app";
-import { InternForm } from "./InternForm";
+import  InternForm  from "./InternForm";
 import LogIn from "./LogIn";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,7 +16,7 @@ export default function Home() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       setAuthenticated(true);
-      router.push("./InternForm");
+      router.push("/InternForm");
     } else {
       setAuthenticated(false);
     }
