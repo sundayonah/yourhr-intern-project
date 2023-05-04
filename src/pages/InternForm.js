@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-export const InternForm = () => {
+const InternForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,7 +25,7 @@ export const InternForm = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-centercontainer mx-auto px-4 py-8">
+    <div className="flex min-h-screen flex-col items-center container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Sign Up for YourHR</h1>
       <form onSubmit={handleSubmit} className="max-w-lg">
         <div className="mb-4">
@@ -98,3 +98,5 @@ export const InternForm = () => {
     </div>
   );
 };
+
+export default InternForm;
