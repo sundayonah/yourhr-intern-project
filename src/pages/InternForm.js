@@ -48,7 +48,6 @@ const InternForm = () => {
       message: "Your form has been successfully submitted!",
       title: "Form Submission",
       position: "topR",
-      icon: "bell",
     });
   };
 
