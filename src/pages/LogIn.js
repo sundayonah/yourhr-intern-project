@@ -13,21 +13,21 @@ const LogIn = () => {
     try {
       const result = await auth.signInWithPopup(provider);
       // Redirect the user to the dashboard page
-      console.log(result, "result");
       router.push("./InternForm");
     } catch (error) {
-      console.error(error.message);
     }
     setLoading(false);
   };
 
   return (
     <div
-      className="flex justify-center items-center cursor-pointer rounded border border-black p-1"
+      className="flex justify-between items-center cursor-pointer rounded border border-black py-1 px-7 md:px-4"
       onClick={handleLogin}
     >
       <Image src={GoogleSvg} width={40} height={40} alt="google" />
-      <h1 className="text-2xl text-grey font-bold">SignUp with Google</h1>
+      <h1 className="text-1xl text-grey font-bold md:text-2xl px-4 whitespace-nowrap">
+        Continue with Google
+      </h1>
     </div>
   );
 };

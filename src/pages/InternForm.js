@@ -24,9 +24,7 @@ const InternForm = () => {
       await auth.signOut();
       // Navigate to Login page after successful sign out
       router.push("/");
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
+    } catch (error) {}
   };
 
   const handleInputChange = (event) => {
@@ -38,26 +36,6 @@ const InternForm = () => {
     const { name, files } = event.target;
     setFormData({ ...formData, [name]: files[0] });
   };
-
-  // rules_version = '2';
-
-  // service firebase.storage {
-
-  //   match /b/{bucket}/o {
-
-  //     match /{allPaths=**} {
-
-  //       allow read, write: if
-
-  //         request.time < timestamp.date(2023, 5, 7);
-
-  //     }
-
-  //   }
-
-  // }
-
-  // console.log(db, " database");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
