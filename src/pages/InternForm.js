@@ -5,9 +5,13 @@ import "firebase/compat/database";
 import { auth, db, storage } from "@/firebase";
 import KudosLogo from "../images/kudosLogo.jpeg";
 import { useRouter } from "next/router";
+import { useNotification } from "web3uikit";
+
 // import { useHistory } from "react-router-dom";
 
 const InternForm = () => {
+  const dispatch = useNotification();
+
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -37,6 +41,25 @@ const InternForm = () => {
     setFormData({ ...formData, [name]: files[0] });
   };
 
+  //Notification
+  const handleNewNotification = () => {
+    dispatch({
+      type: "info",
+      message: "Your form has been successfully submitted!",
+      title: "Form Submission",
+      position: "topR",
+      icon: "bell",
+    });
+  };
+
+  const handleSuccess = async (tx) => {
+    try {
+      handleNewNotification(tx);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -63,6 +86,7 @@ const InternForm = () => {
       resume: null,
     });
     setLoading(false);
+    handleSuccess();
   };
 
   return (
