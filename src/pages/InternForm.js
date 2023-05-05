@@ -223,15 +223,15 @@ const InternForm = () => {
           />
         </div>
         {loading ? (
-          <div className="flex justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          <div className="flex justify-evenly bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             <div className="animate-spin spinner-border h-8 w-8 border-b-2 rounded-full "></div>
-            <p className="px-4">Submittng</p>
+            <p className="px-4">Submittng...</p>
           </div>
         ) : (
           <div className="flex items-center justify-center">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline"
             >
               <p className="px-4">Submit</p>
             </button>
