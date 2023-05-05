@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { auth, provider } from "../firebase"; // importing Firebase authentication and Google provider
 import Image from "next/image"; // importing Next.js Image component
 import GoogleSvg from "../images/google.svg"; // importing Google logo
+import LogInLogo from "../images/logInLogo.svg";
 
 const LogIn = () => {
   const [loading, setLoading] = useState(false); // defining a state for loading
@@ -21,14 +22,18 @@ const LogIn = () => {
 
   // rendering the Google sign-in button
   return (
-    <div
-      className="flex justify-between items-center cursor-pointer rounded border border-black py-1 px-7 md:px-4"
-      onClick={handleLogin}
-    >
-      <Image src={GoogleSvg} width={40} height={40} alt="google" />
-      <h1 className="text-1xl text-grey font-bold md:text-2xl px-4 whitespace-nowrap">
-        Continue with Google
-      </h1>
+    <div className="flex flex-col justify-center items-center h-screen">
+      <h1 className="text-2xl">Log In</h1>
+      <Image src={LogInLogo} alt="form" className="w-25 h-25" />
+      <button
+        className="flex justify-center items-center rounded border border-black py-1 px-7 md:px-4 mt-4"
+        onClick={handleLogin}
+      >
+        <Image src={GoogleSvg} alt="google" className="w-8 h-8 mr-4" />
+        <h1 className="text-xl font-bold md:text-2xl whitespace-nowrap">
+          Continue with Google
+        </h1>
+      </button>
     </div>
   );
 };
