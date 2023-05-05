@@ -104,7 +104,7 @@ const InternForm = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center container mx-auto px-4 py-8">
+    <div className="flex min-h-screen flex-col items-center container mx-auto px-4 py-4">
       <header className="flex justify-between w-full mb-8">
         <Image src={KudosLogo} alt="Your Logo" className="w-10 h-10" />
 
@@ -116,7 +116,8 @@ const InternForm = () => {
         </button>
       </header>
       <h1 className="text-3xl font-bold mb-8">Apply For This Role</h1>
-
+      {/* // A form that includes input fields for name, email, phone, country,
+      desired salary, and resume upload. */}
       <form onSubmit={handleSubmit} className="max-w-lg">
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 font-bold mb-2">

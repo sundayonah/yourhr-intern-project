@@ -1,38 +1,102 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Documentation For INternForm File
 
-## Getting Started
+This code is a React component that allows users to apply for an internship position by filling out a form and submitting their resume. The form data is stored in Firebase Firestore, and the resume file is uploaded to Firebase Storage.
 
-First, run the development server:
+Technologies used:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- React
+- Next.js
+- Firebase
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Usage
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+To use this code, follow these steps:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+1. Clone the repository to your local machine.
+2. Install the necessary dependencies using `npm install`.
+3. Set up a Firebase project and add your Firebase configuration details to the `.env.local` file.
+4. Run the development server using `npm run dev`.
+5. Open `http://localhost:3000` in your web browser to view the application.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Components
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### InternForm
 
-## Learn More
+This component displays a form for users to fill out with their name, email, phone number, salary expectation, country, and resume file. It includes input validation and submits the form data to Firebase Firestore and Storage.
 
-To learn more about Next.js, take a look at the following resources:
+### Functions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### handleSignOut
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This function handles the user sign-out process by calling the `auth.signOut()` method from Firebase and navigating the user to the login page.
 
-## Deploy on Vercel
+#### handleInputChange
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This function updates the form data state when the user enters data into an input field.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### handleFileInputChange
+
+This function updates the form data state when the user selects a file to upload.
+
+#### handleSubmit
+
+This function handles the form submission process by uploading the resume file to Firebase Storage, adding the form data to Firestore, and resetting the form data state.
+
+### Screenshots
+
+![InternForm](/src/images/INTERN.png)
+
+## Documentation For LogIn File
+
+This code is a React component called LogIn that provides a button with "Continue with Google" text, and allows users to sign in with their Google account.
+
+When the user clicks on the button, the handleLogin function is triggered, which sets the loading state to true, and attempts to sign in using Firebase's signInWithPopup method with the Google provider. If the sign-in is successful, the user is redirected to the ./InternForm page using Next.js's useRouter hook. If there is an error during sign-in, the error is caught and handled silently.
+
+## The component imports the following packages and files:
+
+useState from React to handle state
+useRouter from Next.js to handle routing
+auth and provider from ../firebase to sign in with Google using Firebase authentication
+Image from Next.js to display the Google logo
+GoogleSvg from ../images/google.svg to use as the Google logo in the Image component
+This component can be used in a larger application to allow users to sign in with Google.
+
+## These are the libraries that are used in the project with their respective functions:
+
+## autoprefixer:
+
+### It adds vendor prefixes to CSS properties automatically, ensuring that the styles work consistently across different browsers.
+
+### eslint: It is a linting tool that helps to identify and report issues in the JavaScript code.
+
+## firebase:
+
+### It is a mobile and web application development platform that provides a backend as a service (BaaS), real-time database, and various services to build, manage, and scale apps.
+
+## next:
+
+### It is a framework for building server-side rendered React applications.
+
+## postcss:
+
+### It is a tool for transforming CSS with JavaScript plugins, enabling the use of modern CSS features that are not yet supported by all browsers.
+
+## react:
+
+### It is a JavaScript library for building user interfaces.
+
+## react-dom:
+
+### It is a package that provides DOM-specific methods to manipulate and render React components.
+
+## react-router-dom:
+
+### It is a package that provides routing capabilities to React applications.
+
+## tailwindcss:
+
+### It is a utility-first CSS framework that provides pre-defined CSS classes to build UI components rapidly.
+
+## web3uikit:
+
+### web3uikit and is used to provide a notification system for the app.

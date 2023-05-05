@@ -1,24 +1,25 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { auth, provider } from "../firebase";
-import Image from "next/image";
-import GoogleSvg from "../images/google.svg";
+import { auth, provider } from "../firebase"; // importing Firebase authentication and Google provider
+import Image from "next/image"; // importing Next.js Image component
+import GoogleSvg from "../images/google.svg"; // importing Google logo
 
 const LogIn = () => {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [loading, setLoading] = useState(false); // defining a state for loading
+  const router = useRouter(); // using Next.js useRouter hook to navigate to other pages
 
   const handleLogin = async () => {
-    setLoading(true);
+    setLoading(true); // setting the loading state to true
     try {
-      const result = await auth.signInWithPopup(provider);
-      // Redirect the user to the dashboard page
-      router.push("./InternForm");
+      const result = await auth.signInWithPopup(provider); // sign in with Google provider and wait for the result
+      router.push("./InternForm"); // redirect the user to the InternForm page on successful login
     } catch (error) {
+      // handle any errors
     }
-    setLoading(false);
+    setLoading(false); // setting the loading state to false
   };
 
+  // rendering the Google sign-in button
   return (
     <div
       className="flex justify-between items-center cursor-pointer rounded border border-black py-1 px-7 md:px-4"
