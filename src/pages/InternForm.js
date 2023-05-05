@@ -20,6 +20,8 @@ const InternForm = () => {
     name: "",
     email: "",
     phone: "",
+    salary: "",
+    country: "",
     resume: null,
   });
 
@@ -45,8 +47,8 @@ const InternForm = () => {
   const handleNewNotification = () => {
     dispatch({
       type: "info",
-      message: "Your form has been successfully submitted!",
-      title: "Form Submission",
+      message: "Your application was successfully submitted.",
+      title: "Thank you for your application!",
       position: "topR",
     });
   };
@@ -63,29 +65,42 @@ const InternForm = () => {
     event.preventDefault();
 
     setLoading(true);
-    // Upload file to Cloud Storage
-    const fileRef = storage.ref().child(`resumes/${formData.resume.name}`);
-    const snapshot = await fileRef.put(formData.resume);
-    const fileUrl = await snapshot.ref.getDownloadURL();
 
-    // Add document to Firestore with file URL
-    const internsRef = db.collection("interns");
-    await internsRef.add({
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      resumeUrl: fileUrl,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    try {
+      // Upload file to Cloud Storage
+      const fileRef = storage.ref().child(`resumes/${formData.resume.name}`);
+      const snapshot = await fileRef.put(formData.resume);
+      const fileUrl = await snapshot.ref.getDownloadURL();
 
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      resume: null,
-    });
+      // Add document to Firestore with file URL
+      const internsRef = db.collection("interns");
+      await internsRef.add({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        salary: formData.salary,
+        country: formData.country,
+        resumeUrl: fileUrl,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+
+      // Reset the form data
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        salary: "",
+        country: "",
+        resume: null,
+      });
+
+      // Show success notification
+      handleSuccess();
+    } catch (error) {
+      console.error(error);
+    }
+
     setLoading(false);
-    handleSuccess();
   };
 
   return (
@@ -100,12 +115,12 @@ const InternForm = () => {
           Sign Out
         </button>
       </header>
-      <h1 className="text-3xl font-bold mb-8">Sign Up for YourHR</h1>
+      <h1 className="text-3xl font-bold mb-8">Apply For This Role</h1>
 
       <form onSubmit={handleSubmit} className="max-w-lg">
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
-            Name:
+            Name<span className="text-red-600">*</span>
           </label>
           <input
             type="text"
@@ -114,12 +129,13 @@ const InternForm = () => {
             value={formData.name}
             onChange={handleInputChange}
             required
+            placeholder="Onah Sunday"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
-            Email:
+            Email<span className="text-red-600">*</span>
           </label>
           <input
             type="email"
@@ -128,12 +144,13 @@ const InternForm = () => {
             value={formData.email}
             onChange={handleInputChange}
             required
+            placeholder="johnDoe@gmail.com"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
         <div className="mb-4">
           <label htmlFor="phone" className="block text-gray-700 font-bold mb-2">
-            Phone:
+            Phone<span className="text-red-600">*</span>
           </label>
           <input
             type="tel"
@@ -142,6 +159,49 @@ const InternForm = () => {
             value={formData.phone}
             onChange={handleInputChange}
             required
+            placeholder="+1-555-555-1212"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="country"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Country<span className="text-red-600">*</span>
+          </label>
+          <select
+            id="country"
+            name="country"
+            value={formData.country}
+            onChange={handleInputChange}
+            required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          >
+            <option value="">-- Select Country --</option>
+            <option value="United States">United States</option>
+            <option value="Canada">Canada</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Australia">Australia</option>
+            <option value="New Zealand">New Zealand</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="salary"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Desired Salary<span className="text-red-600">*</span>
+          </label>
+          <input
+            type="number"
+            id="salary"
+            name="salary"
+            value={formData.salary}
+            onChange={handleInputChange}
+            required
+            placeholder="$"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -150,7 +210,7 @@ const InternForm = () => {
             htmlFor="resume"
             className="block text-gray-700 font-bold mb-2"
           >
-            Resume:
+            Resume<span className="text-red-600">*</span>
           </label>
           <input
             type="file"
