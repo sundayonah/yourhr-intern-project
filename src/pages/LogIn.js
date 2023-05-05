@@ -22,9 +22,8 @@ const LogIn = () => {
 
   // rendering the Google sign-in button
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
-      <h1 className="text-2xl">Log In</h1>
-      <Image src={LogInLogo} alt="form" className="w-25 h-25" />
+    <div className="flex flex-col justify-center items-center ">
+      <Image src={LogInLogo} alt="form" width={500} height={500} />
       <button
         className="flex justify-center items-center rounded border border-black py-1 px-7 md:px-4 mt-4"
         onClick={handleLogin}
