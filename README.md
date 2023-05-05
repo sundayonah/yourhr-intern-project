@@ -51,6 +51,7 @@ This function handles the form submission process by uploading the resume file t
 This code is a React component called LogIn that provides a button with "Continue with Google" text, and allows users to sign in with their Google account.
 
 When the user clicks on the button, the handleLogin function is triggered, which sets the loading state to true, and attempts to sign in using Firebase's signInWithPopup method with the Google provider. If the sign-in is successful, the user is redirected to the ./InternForm page using Next.js's useRouter hook. If there is an error during sign-in, the error is caught and handled silently.
+![LogIn](/src/images/LogInASAP.png)
 
 ## The component imports the following packages and files:
 
